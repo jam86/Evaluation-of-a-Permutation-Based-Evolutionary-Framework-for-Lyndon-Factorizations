@@ -1,0 +1,96 @@
+--- PartialOrder.java	2020-04-21 23:01:34.356542485 +0100
++++ "/home/jam86/impacs/Evaluation-of-a-Permutation-Based-EvolutionaryFramework-for-Lyndon-Factorizations/modified duvals factoring/DuvalsModifiedAlgorithm/src/PartialOrder.java"	2020-01-18 15:02:52.000000000 +0000
+@@ -1,9 +1,11 @@
+-package thomas.mills.lyndon;
+-
+ import org.jgrapht.graph.DefaultDirectedGraph;
+ import org.jgrapht.graph.DefaultEdge;
+ import org.jgrapht.traverse.BreadthFirstIterator;
+ 
++import java.util.ArrayList;
++import java.util.regex.Matcher;
++import java.util.regex.Pattern;
++
+ public class PartialOrder {
+     boolean max = false;
+     int numOfNodes;
+@@ -21,27 +23,54 @@
+         this.max = max;
+     }
+ 
++    public ArrayList<ModifiedDuval.ModCharacter> fromString(String input) {
++        Pattern vertexEdgePattern = Pattern.compile("^(?:\\(\\[(.*?)\\]), \\[(.*)\\]\\)");
++        Matcher vertexEdgeMatcher = vertexEdgePattern.matcher(input);
++
++        String edges;
++        vertexEdgeMatcher.find();
++        String[] vertices = vertexEdgeMatcher.group(1).split(", ");
++        ArrayList<ModifiedDuval.ModCharacter> chars = new ArrayList<>();
++        for(int i = 0; i < vertices.length; i++) {
++            chars.add(new ModifiedDuval.ModCharacter(vertices[i].toCharArray()[0], this));
++            nodes.addVertex(vertices[i].toCharArray()[0]);
++        }
++        edges = vertexEdgeMatcher.group(2);
++
++        Pattern edgePattern = Pattern.compile("\\(((.*?),(.*?))\\)");
++        Matcher edgeMatcher = edgePattern.matcher(edges);
++
++        while(edgeMatcher.find()) {
++            nodes.addEdge(edgeMatcher.group(1).toCharArray()[0], edgeMatcher.group(2).toCharArray()[0]);
++        }
++
++        return chars;
++    }
+ 
+     //TODO: improve time complexity
+-    public void assignBiggerThan(Character character, Character smaller) {
+-        Character character2;
+-        Character smaller2;
+-        if(max){
+-            character2 = smaller;
+-            smaller2 = character;
+-        }else{
+-            character2 = character;
+-            smaller2 = smaller;
++    public void assignBiggerThan(Character larger, Character smaller) {
++        Character _charA;
++        Character _charB;
++
++        if(max) {
++            _charA = smaller;
++            _charB = larger;
++        } else {
++            _charA = larger;
++            _charB = smaller;
+         }
+-        if(!nodes.containsVertex(character2)){
+-            nodes.addVertex(character2);
++
++        if(!nodes.containsVertex(_charA)) {
++            nodes.addVertex(_charA);
+             numOfNodes += 1;
+         }
+-        if(!nodes.containsVertex(smaller2)){
+-            nodes.addVertex(smaller2);
++
++        if(!nodes.containsVertex(_charB)){
++            nodes.addVertex(_charB);
+             numOfNodes += 1;
+         }
+-        nodes.addEdge(character2, smaller2);
++
++        nodes.addEdge(_charA, _charB);
+     }
+ 
+     public boolean hasCharMapped(Character character, Character smaller) {
+@@ -79,9 +108,7 @@
+ 
+     @Override
+     public String toString() {
+-        return "PartialOrder{" +
+-                "nodes=" + nodes +
+-                '}';
++        return nodes.toString();
+     }
+ 
+     public int getNumOfNodes() {
