@@ -1,0 +1,63 @@
+--- /home/jam86/Desktop/Duval.java	2020-04-21 23:41:06.097411147 +0100
++++ "/home/jam86/impacs/Evaluation-of-a-Permutation-Based-EvolutionaryFramework-for-Lyndon-Factorizations/modified duvals factoring/DuvalsModifiedAlgorithm/src/Duval.java"	2020-01-18 15:02:52.000000000 +0000
+@@ -1,10 +1,9 @@
+-package thomas.mills.lyndon.factorization;
+ import java.util.ArrayList;
+ 
+-public class Duval implements Factorization {
++public class Duval{
+ 	
+ 	/**
+-	 * chekcOrder takes in an encoded character array, and two characters 
++	 * checkOrder takes in an encoded character array, and two characters
+ 	 * it returns 1 if char a is smaller, 0 if char a is larger and -1 if they are equal. 
+ 	 */
+ 	public int checkOrder(char[] o, char a, char b){
+@@ -22,13 +21,13 @@
+ 	 * 
+ 	 * 
+ 	*/
+-	public String sliceString(char[] array, int start, int last) {
++	private String sliceString(char[] array, int start, int last) {
+ 	    return new String(array, start, last - start);
+ 	}
+ 
+ 	
+ 	/**
+-	 * Standard implementaion of the duval factorization algorithm aside from is uses the check order 
++	 * Standard implementation of the duval factorization algorithm aside from is uses the check order
+ 	 * method instead of lexicographical. 
+ 	 */
+ 	
+@@ -48,8 +47,8 @@
+ 				}
+ 				else {
+ 					if(this.checkOrder(ordering,s[j-1], s[i-1]) == 0)
+-						i = k+1;	
+-					else 
++						i = k+1;
++					else
+ 						i = i+1;
+ 					j = j+1;
+ 				}
+@@ -57,6 +56,18 @@
+ 		}
+ 		return factors;
+ 	}
+-	
+ 
++	public char[] getOrderOfAppareance(String s){
++		ArrayList<Character> resultOrderList = new ArrayList<>();
++		for(Character character : s.toCharArray()){
++			if(!resultOrderList.contains(character)){
++				resultOrderList.add(character);
++			}
++		}
++		char[] resultOrder = new char[resultOrderList.size()];
++		for(int i = 0; i < resultOrderList.size(); i++){
++			resultOrder[i] = resultOrderList.get(i);
++		}
++		return resultOrder;
++	}
+ }
+\ No newline at end of file

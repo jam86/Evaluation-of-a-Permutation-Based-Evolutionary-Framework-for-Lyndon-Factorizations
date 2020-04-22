@@ -1,0 +1,148 @@
+--- ModifiedDuval.java	2020-04-21 23:01:34.356542485 +0100
++++ "/home/jam86/impacs/Evaluation-of-a-Permutation-Based-EvolutionaryFramework-for-Lyndon-Factorizations/modified duvals factoring/DuvalsModifiedAlgorithm/src/ModifiedDuval.java"	2020-03-25 17:29:41.000000000 +0000
+@@ -1,21 +1,10 @@
+-package thomas.mills.lyndon;
+-
+-import thomas.mills.lyndon.GreedyAlgorithm.LyndonFactorizer;
+-
+-import java.io.File;
+-import java.io.FileNotFoundException;
+-import java.io.PrintWriter;
+ import java.util.ArrayList;
+-import java.util.HashMap;
+-import java.util.Map;
+ import java.util.Objects;
+ 
+ public abstract class ModifiedDuval {
+ 
+-    private static PartialOrder partialOrder;
+-
+-    public static void reorderSequence(Map<String, String> sequence, boolean max){
+-        String pathname = System.getProperty("user.dir") + "\\GreedyAlgResults2.txt";
++    //public static void reorderSequence(Map<String, String> sequence){
++        /*String pathname = System.getProperty("user.dir") + "\\GreedyAlgResults2.txt";
+         File file = new File(pathname);
+         try {
+             PrintWriter printWriter = new PrintWriter(file);
+@@ -35,7 +24,7 @@
+                 printWriter.print(" Number of factors: ");
+                 int previousSize = proteinSeqFactors.size();
+                 printWriter.println(previousSize);
+-                ArrayList<String> proteinSeqFactReorder = ModifiedDuval.factor(proteinSeq, max);
++                ArrayList<String> proteinSeqFactReorder = ModifiedDuval.factor(proteinSeq, false);
+                 printWriter.print("Factorization of the string with new ordering");
+                 printWriter.println(proteinSeqFactReorder);
+                 printWriter.print("Number of factors: ");
+@@ -77,48 +66,78 @@
+ 
+         } catch (FileNotFoundException e) {
+             e.printStackTrace();
+-        }
++        }*/
++    //}
++
++    public static ArrayList<ModCharacter> factor(String s, PartialOrder partialOrder) {
++        return factor(s, partialOrder, false);
+     }
+ 
+-    public static ArrayList<String> factor(String s, boolean max){
+-        partialOrder = new PartialOrder(max);
++    public static ArrayList<ModCharacter> factor(String s, PartialOrder partialOrder, boolean nucleotideSequence){
+         int h = 0;
+         ArrayList<ModCharacter> chars = new ArrayList<>();
++        ArrayList<ModCharacter> ordering = new ArrayList<>();
+         for(Character character : s.toCharArray()){
+-            chars.add(new ModCharacter(character));
++            ModCharacter chr = new ModCharacter(character, partialOrder);
++            chars.add(chr);
++            if (!ordering.contains(chr)) {
++                ordering.add(chr);
++            }
+         }
++        ArrayList<Character> nucleotideCharacters = new ArrayList<>();
++        nucleotideCharacters.add('A');
++        nucleotideCharacters.add('G');
++        nucleotideCharacters.add('C');
++        nucleotideCharacters.add('T');
+         ArrayList<String> resultList = new ArrayList<>();
+-        while (h < chars.size()){
++        while (h < chars.size()) {
+             int i = h;
+             int j = h + 1;
+-            while (j < chars.size() && (!partialOrder.hasCharMapped(chars.get(j).getaChar(), chars.get(i).getaChar()) || chars.get(j).compareTo(chars.get(i)) >= 0 )){
+-                if(chars.get(j).equals(chars.get(i))){
+-                    i++;
+-                }else if(!partialOrder.hasCharMapped(chars.get(j).getaChar(), chars.get(i).getaChar())){
++            while (j < chars.size() && (!partialOrder.hasCharMapped(chars.get(j).getaChar(), chars.get(i).getaChar()) || chars.get(j).compareTo(chars.get(i)) < 0 || chars.get(j).equals(chars.get(i)))) {
++                /*
++                 * if the file is a nucleotide sequence then we want to make it so that the characters
++                 * which are not nuclotides become the lowest in the sequence so that they do not affect
++                 * the ordering of the nucleotide characters
++                 */
++                if (nucleotideSequence) {
++                    if (!nucleotideCharacters.contains(chars.get(j).getaChar())) {
++                        for (char x : nucleotideCharacters) {
++                            partialOrder.assignBiggerThan(x, chars.get(j).getaChar());
++                        }
++                    }
++                }
++
++                if (!partialOrder.hasCharMapped(chars.get(j).getaChar(), chars.get(i).getaChar())) {
++                    // no assignment between chars j, i
+                     partialOrder.assignBiggerThan(chars.get(j).getaChar(), chars.get(i).getaChar());
+                     i = h;
+-                }else{
++                } else if (chars.get(j).compareTo(chars.get(i)) < 0) {
++                    // char j > i in mapping
+                     i = h;
++                } else {
++                    i += 1;
+                 }
+-                j++;
++                j += 1;
+             }
+-            while(h <= i){
++            do {
+                 String newString = "";
+                 for(int x = h; x < h + j - i; x++){
+                     newString += chars.get(x).getaChar();
+                 }
+                 resultList.add(newString);
+                 h += j - i;
+-            }
++            } while(h <= i);
+         }
+-        System.out.println("Number of nodes: " + partialOrder.getNumOfNodes());
+-        return resultList;
++        //System.out.println("Number of nodes: " + partialOrder.getNumOfNodes());
++        return ordering;
+     }
+-    private static class ModCharacter implements Comparable{
++    public static class ModCharacter implements Comparable{
+         char aChar;
++        PartialOrder partialOrder;
+ 
+-        public ModCharacter(char aChar) {
++        public ModCharacter(char aChar, PartialOrder partialOrder) {
+             this.aChar = aChar;
++            this.partialOrder = partialOrder;
+         }
+ 
+         public char getaChar() {
+@@ -126,12 +145,12 @@
+         }
+ 
+         @Override
+-        public int compareTo(Object o) {
+-            if(partialOrder.isBiggerThan(aChar, ((ModCharacter)o).getaChar())) {
++        public int compareTo(Object o){
++            if(this.partialOrder.isBiggerThan(aChar, ((ModCharacter)o).getaChar())) {
+                 return 1;
+-            } else if(partialOrder.isBiggerThan(((ModCharacter)o).getaChar(), aChar)){
++            } else if(this.partialOrder.isBiggerThan(((ModCharacter)o).getaChar(), aChar)) {
+                 return -1;
+-            }else{
++            } else {
+                 return 0;
+             }
+         }

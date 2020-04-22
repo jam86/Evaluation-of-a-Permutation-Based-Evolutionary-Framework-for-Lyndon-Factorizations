@@ -1,0 +1,15 @@
+Plot orderings found from DFS in flexi-duval (modified duval) orderings
+with the points proportional to the freq of characters in the whole
+genome.
+
+Need data for char counts for genomes and inverse freq amino acid freq
+orderings (genome and protein) to run.
+
+Plot output is named after the column in the inverse freq data file
+Col 2 is mod duval, 3 is protein and 6 is genome
+
+Run computeLyndonFactorsForInverseFreqAndModifiedDuvals.py from "comparison of lyndon factor lengths"
+Run countCharsInGenomes.py from "count characters in genomes"
+
+Run:
+python3 analysis\ by\ char.py [output of computeLyndonFactorsForInverseFreqAndModifiedDuvals.py] [output of countCharsInGenomes.py] [basename of output plots]
