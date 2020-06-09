@@ -49,7 +49,7 @@ def plot(dataPerExperiment):
 	if sys.argv[3] == "1":
 		ending = " and SA"
 	
-	print("operator & max average & min average & average stdev")
+	print("operator & max average & min average & average mean $\pm$ stdev")
 	smallestDiffMaxMin = None
 	smallestDiffMaxMinOperator = None
 	for experiment, data in dataPerExperiment.items():
@@ -59,6 +59,7 @@ def plot(dataPerExperiment):
 		mins = []
 		#modes = []
 		stdevs = []
+		means = []
 		for values in data:
 			if values == None:
 				continue
@@ -68,6 +69,7 @@ def plot(dataPerExperiment):
 			maxs.append(max(values))
 			mins.append(min(values))
 			stdevs.append(np.std(values))
+			means.append(np.mean(values))
 			# we can't use mode since there are multiple most common
 			#modes.append(mode(values))
 		
@@ -89,7 +91,7 @@ def plot(dataPerExperiment):
 		if smallestDiffMaxMin == None or diffMaxMin < smallestDiffMaxMin:
 			smallestDiffMaxMin = diffMaxMin
 			smallestDiffMaxMinOperator = experiments[int(experiment)]
-		print("%s&%f&%f&%f\\\\" % (experiments[int(experiment)], meanMax, meanMin, np.mean(stdevs)))
+		print("%s&%f&%f&%f $\pm$ %f\\\\" % (experiments[int(experiment)], meanMax, meanMin, np.mean(means), np.mean(stdevs)))
 	print("smallest diff max min is %f for %s" % (smallestDiffMaxMin, smallestDiffMaxMinOperator))
 	
 data = pickle.load(open(sys.argv[1], "rb"))
