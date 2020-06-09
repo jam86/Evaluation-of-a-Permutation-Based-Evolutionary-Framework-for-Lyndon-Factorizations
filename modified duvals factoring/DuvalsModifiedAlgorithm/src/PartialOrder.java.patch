@@ -36,7 +36,7 @@
 +        Matcher edgeMatcher = edgePattern.matcher(edges);
 +
 +        while(edgeMatcher.find()) {
-+            nodes.addEdge(edgeMatcher.group(1).toCharArray()[0], edgeMatcher.group(2).toCharArray()[0]);
++            nodes.addEdge(edgeMatcher.group(2).toCharArray()[0], edgeMatcher.group(3).toCharArray()[0]);
 +        }
 +
 +        return chars;

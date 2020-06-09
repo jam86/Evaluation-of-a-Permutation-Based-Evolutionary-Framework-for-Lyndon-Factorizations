@@ -40,13 +40,13 @@ def plot(dataPerExperiment):
 		averages, stdevs = data
 		plt.errorbar(range(len(averages)), averages)#, yerr=stdevs, ecolor="red")
 		plt.ylim(ylim)
-		plt.xlabel("Iteration")
-		plt.ylabel("Average fitness for all proteins for a single genome")
+		plt.xlabel("Iteration", fontsize=12)
+		plt.ylabel("Average fitness for all proteins for a single genome", fontsize=12)
 		ending = ""
 		if sys.argv[3] == "1":
 			ending = " and SA"
-		plt.title("Average fitness over time for a single genome with a single individual\nand " + experiments[int(experiment)] + " mutation" + ending)
-		plt.savefig(path.join(sys.argv[2], experiment + ".png"))
+		plt.title(experiments[int(experiment)] + " mutation" + ending + "\nfor Lyndon factor minimization fitness", fontsize=18)
+		plt.savefig(path.join(sys.argv[2], experiment + ".eps"), transparent=True)
 		plt.clf()
 
 data = pickle.load(open(sys.argv[1], "rb"))
