@@ -13,3 +13,6 @@ Run countCharsInGenomes.py from "count characters in genomes"
 
 Run:
 python3 analysis\ by\ char.py [output of computeLyndonFactorsForInverseFreqAndModifiedDuvals.py] [output of countCharsInGenomes.py] [basename of output plots]
+
+
+Running "analysis by char.py" requires seaborn version 0.9.0, using version 0.10.0 will error. Matplotlib was 3.1.2 when testing.
