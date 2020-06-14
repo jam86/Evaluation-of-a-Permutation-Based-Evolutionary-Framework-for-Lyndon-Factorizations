@@ -12,6 +12,7 @@ if __name__ == "__main__":
 maxs = []
 mins = []
 stdevs = []
+means = []
 with open(sys.argv[1], "r") as f:
 	# genome,protein,factors
 	csv.field_size_limit(sys.maxsize)
@@ -23,5 +24,6 @@ with open(sys.argv[1], "r") as f:
 		maxs.append(max(values))
 		mins.append(min(values))
 		stdevs.append(np.std(values))
+		means.append(np.mean(values))
 	
-	print("%s&%f&%f&%f\\\\" % ("Duval's", np.mean(maxs), np.mean(mins), np.mean(stdevs)))
+	print("%s&%f&%f&%f $\pm$ %f\\\\" % ("Duval's", np.mean(maxs), np.mean(mins), np.mean(means), np.mean(stdevs)))
