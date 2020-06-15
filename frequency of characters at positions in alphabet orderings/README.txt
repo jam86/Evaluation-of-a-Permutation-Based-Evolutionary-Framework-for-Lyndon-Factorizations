@@ -16,3 +16,7 @@ python3 analysis\ by\ char.py [output of computeLyndonFactorsForInverseFreqAndMo
 
 
 Running "analysis by char.py" requires seaborn version 0.9.0, using version 0.10.0 will error. Matplotlib was 3.1.2 when testing.
+
+Data:
+inverseFreqAndModifiedDuvalsFactors.csv, testingGenomeCharCounts.csv
+from "data.tar.xz/comparison of lyndon factor lengths"

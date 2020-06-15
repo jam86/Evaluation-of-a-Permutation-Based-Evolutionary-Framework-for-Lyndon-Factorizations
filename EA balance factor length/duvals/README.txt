@@ -8,3 +8,6 @@ Run:
 python3 duvalsMaxMinStdevAverageFactors.py testingFirst30OriginalDuvalsFactors.csv
 
 Output is a table line for latex
+
+Data:
+testingDuvalsAminoAcidFactors.csv from "data.tar.xz/DA for table 6"

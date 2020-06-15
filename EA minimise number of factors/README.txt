@@ -14,4 +14,4 @@ Run:
 python3 processNumFactors.py [output of gatherData.py] [output.processed.dat]
 python3 plotNumFactors.py [output of processNumFactors.py] [path/to/plot/directory] 0
 
-The data we used for the paper is in /data. Processed data is in /numFactors and /overTime
+Data is from "data.tar.xz/EA minimise number of factors"
