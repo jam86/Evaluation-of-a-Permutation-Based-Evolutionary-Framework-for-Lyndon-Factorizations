@@ -10,3 +10,7 @@ Run calculateOrderingForGenomesDuvals.py from "duvals factoring"
 
 Run:
 python3 lyndonFactorComparisonAnalysis.py [output of computeLyndonFactorsForInverseFreqAndModifiedDuvals.py] 0 0 [output of calculateOrderingForGenomesDuvals.py] [output.csv] > [output.txt]
+
+Data:
+testingGenomeCharCounts.csv, inverseFreqAndModifiedDuvals.csv, duvalsAminoAcidFactors.csv
+from "data.tar.gz/comparison of lyndon factor lengths/"
