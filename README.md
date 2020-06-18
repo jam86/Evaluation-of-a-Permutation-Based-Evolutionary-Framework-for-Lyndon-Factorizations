@@ -1,4 +1,5 @@
 Evaluation of a Permutation-Based Evolutionary Framework for Lyndon Factorizations
+[![DOI](https://zenodo.org/badge/3896389)](https://zenodo.org/badge/latestdoi/3896389)
 
 This is the code repository for the paper (DOI and conference link to come).
 
