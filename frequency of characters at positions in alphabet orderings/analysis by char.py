@@ -140,8 +140,8 @@ with open(sys.argv[1]) as csvf:
 		axscatter.legend_.remove()
 		axscatter = sns.scatterplot(x="averagePosition", y="genome", data=plotData, hue="chars", style="markers", markers=plotData["markers"], s=plotData["size"])
 		axscatter.legend_.remove()"""
-		plt.ylabel("Average position in alphabet")
-		plt.xlabel("Genome")
+		plt.ylabel("Average position in alphabet", fontsize=12)
+		plt.xlabel("Genome", fontsize=12)
 		#plt.title("Average position of characters in Flexi-Duval orderings\nwith the size of each point proportional to the frequency of the\ncharacter in the genome")
 		plt.tight_layout()
 		plt.savefig(sys.argv[3] + str(column) + ".pdf", dpi=1200)
