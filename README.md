@@ -3,7 +3,7 @@ Evaluation of a Permutation-Based Evolutionary Framework for Lyndon Factorizatio
 
 This is the code repository for the paper (DOI and conference link to come).
 
-We use data from NCBI RefSeq (https://www.ncbi.nlm.nih.gov/genome/browse#!/prokaryotes/) in amino acid format.
+We use data from NCBI RefSeq (see prokaryotes.csv) in amino acid format.
 From the NCBI genome list, FTP URLs are shown to download the files. The amino acid format files end in "_protein.faa.gz".
 
 Data is available at http://hdl.handle.net/2160/b51cb7f3-63b3-4634-8b45-a8dc458444b4.
