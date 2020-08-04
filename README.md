@@ -11,3 +11,5 @@ The list of genomes we used for the testing of the minimisation of the number of
 The name of the genome we used for finding the mutation operator to use for the EA is in trainingGenome.
 
 In our code, ModifiedDuvals was the working name of Flexi-Duval. Similarly, ModifiedDuvalsOperator refers to the LF-inspired operator.
+
+NCBI have reduced the number of reference genomes https://ncbiinsights.ncbi.nlm.nih.gov/2020/02/14/assembly-changes/.
