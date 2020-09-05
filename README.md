@@ -1,7 +1,7 @@
 Evaluation of a Permutation-Based Evolutionary Framework for Lyndon Factorizations
 [![DOI](https://zenodo.org/badge/3896389)](https://zenodo.org/badge/latestdoi/3896389)
 
-This is the code repository for the paper (DOI and conference link to come).
+This is the code repository for the paper (https://doi.org/10.1007/978-3-030-58112-1_27).
 
 We use data from NCBI RefSeq (see prokaryotes.csv) in amino acid format.
 From the NCBI genome list, FTP URLs are shown to download the files. The amino acid format files end in "_protein.faa.gz".
